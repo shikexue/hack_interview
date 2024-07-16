@@ -1,10 +1,12 @@
 import numpy as np
 import PySimpleGUI as sg
+import logging
 from loguru import logger
 
-from src import audio, llm
-from src.constants import APPLICATION_WIDTH, OFF_IMAGE, ON_IMAGE
+import audio, llm
+from constants import APPLICATION_WIDTH, OFF_IMAGE, ON_IMAGE
 
+# logging.basicConfig(level='DEBUG')
 
 def get_text_area(text: str, size: tuple) -> sg.Text:
     """
