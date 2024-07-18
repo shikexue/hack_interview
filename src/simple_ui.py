@@ -84,10 +84,10 @@ while True:
             WINDOW.perform_long_operation(background_recording_loop, "-RECORDING-")
         record_status_button.update(image_data=ON_IMAGE if record_status_button.metadata.state else OFF_IMAGE)
 
-    elif event in ("a", "A"):  # send audio to OpenAI Whisper model
+    elif event in ("a", "A"):  # send audio to Deepgram for transcription
         logger.debug("Analyzing audio...")
         analyzed_text_label.update("Start analyzing...")
-        WINDOW.perform_long_operation(llm.transcribe_audio, "-WHISPER COMPLETED-")
+        WINDOW.perform_long_operation(llm.transcribe_audio_deepgram, "-WHISPER COMPLETED-")
 
     elif event == "-WHISPER COMPLETED-":
         audio_transcript = values["-WHISPER COMPLETED-"]
@@ -108,5 +108,14 @@ while True:
         )
     elif event == "-CHAT_GPT SHORT ANSWER-":
         quick_chat_gpt_answer.update(values["-CHAT_GPT SHORT ANSWER-"])
+        # Read the short answer
+        WINDOW.perform_long_operation(
+            lambda: llm.text_to_speech(values["-CHAT_GPT SHORT ANSWER-"]),
+            "-CHAT_GPT SPEECHIFY-",
+        )
+    elif event == "-CHAT_GPT SPEECHIFY-":
+        WINDOW.perform_long_operation(
+            lambda: audio.play_audio_file()
+        )
     elif event == "-CHAT_GPT LONG ANSWER-":
         full_chat_gpt_answer.update(values["-CHAT_GPT LONG ANSWER-"])
