@@ -1,7 +1,9 @@
 INTERVIEW_POSTION = "python developer"
 OPENAI_API_KEY = ""
+DEEPGRAM_API_KEY = ""
 
 OUTPUT_FILE_NAME = "out.wav"  # audio file name.
+READ_FILE_NAME = "openai_out.mp3"
 
 SAMPLE_RATE = 48000  # [Hz]. sampling rate.
 RECORD_SEC = 1  # [sec]. duration recording audio.
